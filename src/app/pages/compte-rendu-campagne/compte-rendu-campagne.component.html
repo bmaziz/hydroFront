@@ -1,0 +1,62 @@
+<div class="container">
+  <h2 class="title">Compte Rendu de Campagne</h2>
+
+  <form [formGroup]="filtreForm" (ngSubmit)="filtrerCampagnes()" class="filtre-form">
+    <div class="form-row">
+      <label>Navire :</label>
+      <select formControlName="navire">
+        <option value="">-- Tous les navires --</option>
+        <option *ngFor="let nav of navires" [value]="nav.codeNavire">{{ nav.nomNavire }}</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Période :</label>
+      <input type="date" formControlName="dateDebut">
+      <input type="date" formControlName="dateFin">
+    </div>
+
+    <div class="form-row">
+      <label>Laboratoire :</label>
+      <select formControlName="laboratoire">
+        <option value="">-- Tous les labos --</option>
+        <option *ngFor="let lab of laboratoires" [value]="lab.lab">{{ lab.lab }}</option>
+      </select>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-search">🔍 Rechercher</button>
+    </div>
+  </form>
+
+  <div *ngIf="compagnes.length > 0" class="results">
+    <h3 class="sub-title">Résultats de la recherche des comptes rendus des campagnes</h3>
+
+    <table class="table-campagnes">
+      <thead>
+        <tr>
+          <th>Nom de la campagne</th>
+          <th>Dates</th>
+          <th>Afficher</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of compagnes">
+          <td>{{ c.idCompagne }}</td>
+          <td>{{ c.dateDebut }} - {{ c.dateFin }}</td>
+          <td>
+            <button [routerLink]="['/campagnes', c.idCompagne]" class="btn-view">
+            Voir detail
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p *ngIf="compagnes.length === 0 && !message && filtreForm.dirty" class="no-result">
+    Aucune campagne trouvée.
+  </p>
+
+  <p *ngIf="message" class="error">{{ message }}</p>
+</div>

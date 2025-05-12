@@ -1,0 +1,49 @@
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+input {
+  padding: 6px;
+  width: 180px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th, .data-table td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+}
+.parametres-legende {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.parametres-legende ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.parametres-legende li {
+  margin: 4px 0;
+}
+
+
+.legend-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.legend-grid > div {
+  width: 45%; /* ✅ Deux colonnes par ligne */
+}
+

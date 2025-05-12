@@ -1,0 +1,29 @@
+<!-- Formulaire de recherche par intervalle de dates -->
+<div class="inventaire-container">
+  <form (ngSubmit)="onSearch()" class="form-recherche">
+    <label>Sélectionner Date :</label>
+
+    <span>du :</span>
+    <input type="date" [(ngModel)]="startDate" name="start" required>
+
+    <span>au :</span>
+    <input type="date" [(ngModel)]="endDate" name="end" required>
+
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <!-- Liste des campagnes avec cases à cocher -->
+  <div *ngIf="campagneIds.length > 0" class="liste-campagnes">
+    <h3>Liste des campagnes</h3>
+    <p>Date : du {{ startDate }} au {{ endDate }}</p>
+
+    <div class="checkbox-container">
+      <div *ngFor="let id of campagneIds">
+        <input type="checkbox" [(ngModel)]="selectedIds[id]" name="id" />
+        <label>{{ id }}</label>
+      </div>
+    </div>
+
+    <button (click)="creerFichier()" class="btn-creer">Créer le fichier</button>
+  </div>
+</div>

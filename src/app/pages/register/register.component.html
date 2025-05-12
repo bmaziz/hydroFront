@@ -1,0 +1,51 @@
+<div class="auth-container">
+  <h2>Inscription</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="login">Login</label>
+      <input type="text" id="login" formControlName="login" />
+      <div class="error" *ngIf="registerForm.get('login')?.touched && registerForm.get('login')?.invalid">
+        Login requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" />
+      <div class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+        Email valide requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" formControlName="adresse" />
+    </div>
+
+    <div class="form-group">
+      <label for="institution">Institution</label>
+      <input type="text" id="institution" formControlName="institution" />
+    </div>
+
+    <div class="form-group">
+      <label for="typeInst">Type d’institution</label>
+      <input type="text" id="typeInst" formControlName="typeInst" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" formControlName="password" />
+      <div class="error" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+        Mot de passe requis
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+
+    <p class="link">
+      Vous avez déjà un compte ?
+      <a routerLink="/login">Se connecter</a>
+    </p>
+  </form>
+</div>

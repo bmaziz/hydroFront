@@ -1,0 +1,12 @@
+.upload-container {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    max-width: 400px;
+    margin: 2rem auto;
+    border-radius: 5px;
+  }
+  
+  button {
+    margin-top: 1rem;
+  }
+  
