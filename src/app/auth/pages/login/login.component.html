@@ -1,0 +1,40 @@
+<div class="auth-container">
+    <h2>Connexion</h2>
+  
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label for="login">Login</label>
+        <input
+          type="text"
+          id="login"
+          formControlName="login"
+          [ngClass]="{ 'invalid': loginForm.get('login')?.invalid && loginForm.get('login')?.touched }"
+        />
+        <div class="error" *ngIf="loginForm.get('login')?.touched && loginForm.get('login')?.invalid">
+          Le login est requis
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          [ngClass]="{ 'invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched }"
+        />
+        <div class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+          Le mot de passe est requis
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
+  
+      <p class="link">
+        Pas encore de compte ?
+        <a routerLink="/auth/register">Créer un compte</a>
+      </p>
+    </form>
+  </div>
+  

@@ -1,0 +1,82 @@
+<div class="container">
+  <h2>Voir les Données</h2>
+
+  <form [formGroup]="filtreForm" (ngSubmit)="onFilter()" class="filter-form">
+    <!-- champs de filtres -->
+    <input type="number" placeholder="Lat Min" formControlName="latMin" />
+    <input type="number" placeholder="Lat Max" formControlName="latMax" />
+    <input type="number" placeholder="Lon Min" formControlName="lonMin" />
+    <input type="number" placeholder="Lon Max" formControlName="lonMax" />
+    <input type="number" placeholder="Prof Min" formControlName="profMin" />
+    <input type="number" placeholder="Prof Max" formControlName="profMax" />
+    <input type="date" formControlName="dateDebut" />
+    <input type="date" formControlName="dateFin" />
+    <button type="submit" class="btn btn-primary">🔍 Rechercher</button>
+  </form>
+
+  <!-- Carte toujours visible -->
+  <div id="map" style="height: 400px; margin: 20px 0;"></div>
+
+  <!-- Tableau uniquement après clic -->
+  <div *ngIf="resultVisible">
+    <div id="profilTable">
+      <table *ngIf="profils.length > 0" class="data-table table table-striped">
+        <thead>
+          <tr>
+            <th>ID Campagne</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Profondeur</th>
+            <th>Paramètres CTD</th>
+            <th>Paramètres Bouteilles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of getProfilsPage()">
+            <td>{{ p.idProfil }}</td>
+            <td>{{ p.dateProfil }}</td>
+            <td>{{ p.tempsProfil }}</td>
+            <td>{{ p.lat | number:'1.1-3' }}</td>
+            <td>{{ p.longitude | number:'1.1-3' }}</td>
+            <td>{{ p.depth }}</td>
+            <td>
+              <ng-container *ngIf="p.parametres?.length">
+                <span *ngFor="let param of p.parametres">
+                  <ng-container *ngIf="param.data_type.codeType === 'H10'">
+                    {{ param.codeParam }},
+                  </ng-container>
+                </span>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="p.parametres?.length">
+                <span *ngFor="let param of p.parametres">
+                  <ng-container *ngIf="param.data_type.codeType === 'H9'">
+                    {{ param.codeParam }},
+                  </ng-container>
+                </span>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between my-3">
+      <button class="btn btn-outline-primary" (click)="previousPage()" [disabled]="page === 0">⬅️ Précédent</button>
+      <button class="btn btn-outline-primary" (click)="nextPage()" [disabled]="(page + 1) * pageSize >= profils.length">Suivant ➡️</button>
+    </div>
+
+    <button class="btn btn-success mb-3" (click)="printTable()">🖨️ Imprimer le tableau</button>
+    <button routerLink="/user/extraction" class="btn btn-dark mb-3">⏬ Extraction</button>
+
+    <div class="container mt-4" *ngIf="parametres.length > 0">
+      <h4 class="mb-3">Légende des paramètres :</h4>
+      <div class="row" *ngFor="let pair of parametres | slice:0:100; let i = index">
+        <ng-container *ngIf="i % 2 === 0">
+          <div class="col-md-6 mb-2">
+            <strong>{{ parametres[i].codeParam }}:</strong>
+            {{ parametres[i].libelleParam }} ({{ parametres[i].unite }})
+          </div>

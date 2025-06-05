@@ -1,0 +1,65 @@
+<nb-card class="campagne-card">
+  <nb-card-header>
+    <h2 class="title">Compte Rendu de Campagne</h2>
+  </nb-card-header>
+
+  <nb-card-body>
+    <form [formGroup]="filtreForm" (ngSubmit)="filtrerCampagnes()" class="form-nb">
+      <div class="form-row">
+        <label>Navire :</label>
+        <nb-select formControlName="navire" placeholder="-- Tous les navires --" fullWidth>
+          <nb-option *ngFor="let nav of navires" [value]="nav.codeNavire">{{ nav.nomNavire }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="form-row">
+        <label>Période :</label>
+        <div class="date-range">
+          <input nbInput type="date" formControlName="dateDebut">
+          <input nbInput type="date" formControlName="dateFin">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Laboratoire :</label>
+        <nb-select formControlName="laboratoire" placeholder="-- Tous les labos --" fullWidth>
+          <nb-option *ngFor="let lab of laboratoires" [value]="lab.lab">{{ lab.lab }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="form-actions">
+        <button nbButton status="primary" type="submit">🔍 Rechercher</button>
+      </div>
+    </form>
+
+    <div *ngIf="compagnes.length > 0" class="results">
+      <h3 class="sub-title">Résultats de la recherche</h3>
+      <table class="table-campagnes">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Dates</th>
+            <th>Afficher</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of compagnes">
+            <td>{{ c.idCompagne }}</td>
+            <td>{{ c.dateDebut }} - {{ c.dateFin }}</td>
+            <td>
+              <button nbButton size="tiny" status="info" [routerLink]="['/user/campagnes', c.idCompagne]">
+                Voir détail
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="compagnes.length === 0 && !message && filtreForm.dirty" class="no-result">
+      Aucune campagne trouvée.
+    </p>
+
+    <p *ngIf="message" class="error">{{ message }}</p>
+  </nb-card-body>
+</nb-card>

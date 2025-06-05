@@ -1,0 +1,26 @@
+<nb-layout>
+  <nb-layout-header fixed class="custom-navbar" [class.scrolled]="isScrolled">
+    <div class="container">
+      <a routerLink="/" class="logo">HydroBase</a>
+
+      <ul class="nav-links" *ngIf="!isLoggedIn">
+        <li><a routerLink="/auth/login" routerLinkActive="active">🔐 Connexion</a></li>
+        <li><a routerLink="/auth/register" routerLinkActive="active">👤 Inscription</a></li>
+      </ul>
+
+      <ul class="nav-links" *ngIf="isLoggedIn">
+        <li class="username-display">👤 {{ username }}</li>
+
+        <li><button nbButton size="small" status="danger" (click)="logout()">🚪 Logout</button></li>
+      </ul>
+    </div>
+  </nb-layout-header>
+
+  <nb-sidebar tag="menu-sidebar" state="expanded">
+    <nb-menu [items]="menuItems"></nb-menu>
+  </nb-sidebar>
+
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+</nb-layout>

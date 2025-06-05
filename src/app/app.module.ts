@@ -3,57 +3,48 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
-import { UploadCliComponent } from './pages/upload-cli/upload-cli.component';
-import { CompteRenduCampagneComponent } from './pages/compte-rendu-campagne/compte-rendu-campagne.component';
-import { VoirDonneesCampagneComponent } from './pages/voir-donnees-campagne/voir-donnees-campagne.component';
-import { InventaireCampagneComponent } from './pages/inventaire-campagne/inventaire-campagne.component';
-import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// ✅ Modules Nebular
 import {
   NbThemeModule,
   NbLayoutModule,
   NbSidebarModule,
   NbMenuModule,
   NbIconModule,
-  NbButtonModule,
+  NbButtonModule
 } from '@nebular/theme';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DetailCampagneComponent } from './pages/detail-campagne/detail-campagne.component';
-import { ExtractionComponent } from './pages/extraction/extraction.component';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
+
+// ✅ Ton intercepteur JWT ou autre
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
-    LoginComponent,
-    UploadCliComponent,
-    InventaireCampagneComponent,
-    VoirDonneesCampagneComponent,
-    CompteRenduCampagneComponent,
-    SidebarComponent,
-    DetailCampagneComponent,
-    ExtractionComponent,
+    // 👉 Ajoute ici d'autres composants globaux si tu en as
   ],
   imports: [
-    FormsModule,
     BrowserModule,
-    ReactiveFormsModule,
-    AppRoutingModule,
-    HttpClientModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
 
-    // Nebular modules
-    NbThemeModule.forRoot({ name: 'cosmic' }),
+    // ✅ Initialisation du thème Nebular
+    NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbIconModule,
+    NbEvaIconsModule,
     NbButtonModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {} // ✅ Bien exporté !

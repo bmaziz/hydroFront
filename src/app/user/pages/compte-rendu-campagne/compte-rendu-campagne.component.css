@@ -1,0 +1,46 @@
+.campagne-card {
+  max-width: 800px;
+  margin: 3rem auto;
+}
+
+.form-nb {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-range {
+  display: flex;
+  gap: 1rem;
+}
+
+.table-campagnes {
+  width: 100%;
+  margin-top: 1.5rem;
+  border-collapse: collapse;
+}
+
+.table-campagnes th,
+.table-campagnes td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+.sub-title {
+  margin-top: 2rem;
+}
+
+.no-result {
+  margin-top: 1.5rem;
+  color: #888;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}

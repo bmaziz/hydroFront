@@ -1,0 +1,26 @@
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h2 class="text-center mb-4">Importer un fichier .cli</h2>
+
+    <div class="mb-3 text-center">
+      <input type="file"
+             class="form-control w-50 mx-auto"
+             (change)="onFileSelected($event)"
+             accept=".cli">
+    </div>
+
+    <div class="text-center">
+      <button (click)="onUpload()"
+              class="btn btn-primary"
+              [disabled]="isUploading">
+        {{ isUploading ? 'Envoi en cours...' : 'Envoyer' }}
+      </button>
+    </div>
+
+    <div class="mt-4 text-center">
+      <div *ngIf="message" [ngClass]="messageClass" class="alert" role="alert">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>

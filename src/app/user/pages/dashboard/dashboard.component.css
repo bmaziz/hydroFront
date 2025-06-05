@@ -1,0 +1,93 @@
+/* ==== NAVBAR STYLÉE ==== */
+.custom-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #0e3b62;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 15px 0;
+  transition: background-color 0.3s ease;
+}
+
+.custom-navbar.scrolled {
+  background-color: #093054;
+}
+
+.container {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* ==== NAV LINKS ==== */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin-left: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #FFD700;
+}
+
+/* ==== SIDEBAR MAX À GAUCHE ==== */
+::ng-deep nb-sidebar {
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.08);
+  z-index: 999;
+}
+
+::ng-deep nb-sidebar nb-menu {
+  padding-top: 15px;
+}
+
+::ng-deep nb-sidebar nb-menu a {
+  display: block;
+  color: #0e3b62;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+::ng-deep nb-sidebar nb-menu a:hover,
+::ng-deep nb-sidebar nb-menu a.active {
+  background-color: #0e3b62;
+  color: white;
+}
+.username-display {
+  color: #f7f7f5; /* ou #333 pour gris foncé, ou #007bff pour bleu */
+  font-weight: bold;
+  font-size: 15px;
+  padding: 8px 12px;
+}
+

@@ -1,0 +1,30 @@
+<nb-layout>
+
+  <!-- 🔝 Header Navbar Modernisé -->
+  <nb-layout-header fixed class="custom-navbar" [class.scrolled]="isScrolled">
+    <div class="container">
+      <span class="logo">HydroBase - Admin</span>
+
+      <div *ngIf="!isLoggedIn" class="nav-links">
+        <li><a routerLink="/auth/login" routerLinkActive="active">🔐 Connexion</a></li>
+        <li><a routerLink="/auth/register" routerLinkActive="active">👤 Inscription</a></li>
+      </div>
+
+      <div *ngIf="isLoggedIn" class="nav-links">
+        <li class="username-display">{{username}}</li>
+        <li><button nbButton size="small" status="danger" (click)="logout()">🚪 Logout</button></li>
+      </div>
+    </div>
+  </nb-layout-header>
+
+  <!-- 📚 Sidebar collée à gauche -->
+  <nb-sidebar tag="admin-sidebar" state="expanded">
+    <nb-menu [items]="adminMenuItems"></nb-menu>
+  </nb-sidebar>
+
+  <!-- 📄 Contenu principal -->
+  <nb-layout-column>
+    <router-outlet></router-outlet>
+  </nb-layout-column>
+
+</nb-layout>

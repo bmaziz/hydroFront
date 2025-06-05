@@ -1,0 +1,27 @@
+<nb-layout>
+  <!-- 🔝 Top Navbar -->
+  <nb-layout-header fixed>
+    <div class="header-content">
+      <span class="app-title">HydroBase</span>
+
+      <!-- 🔐 Connexion / Inscription -->
+      <div *ngIf="!isLoggedIn" class="auth-buttons">
+        <button nbButton size="small" status="primary" routerLink="/auth/login">🔐 Connexion</button>
+        <button nbButton size="small" status="info" routerLink="/auth/register">👤 Inscription</button>
+      </div>
+
+      <!-- 👤 Profil connecté -->
+      <div *ngIf="isLoggedIn" class="auth-buttons">
+        <nb-user [name]="username || ''" [showName]="true" size="small"></nb-user>
+        <button nbButton size="small" status="danger" (click)="logout()">🚪 Logout</button>
+      </div>
+    </div>
+  </nb-layout-header>
+
+  <!-- 📚 Sidebar -->
+  <nb-sidebar tag="menu-sidebar" state="compacted">
+    <nb-menu [items]="menuItems"></nb-menu>
+  </nb-sidebar>
+
+
+</nb-layout>

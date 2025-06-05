@@ -1,0 +1,43 @@
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h2 class="text-center mb-4">Recherche de Campagnes</h2>
+
+    <!-- Formulaire de recherche -->
+    <form (ngSubmit)="onSearch()" class="row g-3 justify-content-center">
+      <div class="col-md-4">
+        <label for="startDate" class="form-label">Date de début</label>
+        <input type="date" class="form-control" id="startDate" [(ngModel)]="startDate" name="start" required>
+      </div>
+
+      <div class="col-md-4">
+        <label for="endDate" class="form-label">Date de fin</label>
+        <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" name="end" required>
+      </div>
+
+      <div class="col-12 text-center">
+        <button type="submit" class="btn btn-primary">Envoyer</button>
+      </div>
+    </form>
+    <div *ngIf="aucuneCampagne" class="alert alert-warning text-center mt-4">
+      Aucune campagne trouvée pour cette période.
+    </div>
+    
+    <!-- Liste des campagnes -->
+    <div *ngIf="campagneIds.length > 0" class="mt-5">
+      <h4 class="text-center">Résultats pour : du {{ startDate }} au {{ endDate }}</h4>
+
+      <div class="list-group my-4">
+        <div *ngFor="let id of campagneIds" class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" [(ngModel)]="selectedIds[id]" name="id-{{ id }}">
+            <label class="form-check-label">{{ id }}</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button (click)="creerFichier()" class="btn btn-success">Créer le fichier</button>
+      </div>
+    </div>
+  </div>
+</div>

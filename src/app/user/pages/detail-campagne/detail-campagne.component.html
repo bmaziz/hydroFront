@@ -1,0 +1,60 @@
+<div class="fiche-campagne" *ngIf="campagne">
+    <h3>Compte Rendu de la Campagne {{ campagne.idCampagne }}</h3>
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Navire</th>
+          <th>Ref. Campagne</th>
+          <th>Période</th>
+          <th>Projet</th>
+          <th>Couverture géographique</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ campagne.navire.nomNavire }}</td>
+          <td>{{ campagne.idCampagne }}</td>
+          <td>{{ campagne.dateDebut }} - {{ campagne.dateFin }}</td>
+          <td>{{ campagne.projet?.nomProjet }}</td>
+          <td>
+            {{ campagne.region?.reg }} : 
+            Latitude : 36,5 - 37,5 N ; Longitude : 10 - 11 E
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Chef de la mission</th>
+          <th>Institut</th>
+          <th>Port de départ</th>
+          <th>Port d'arrivée</th>
+          <th>Carte de position des stations</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ campagne.scientifique?.prenom }} {{ campagne.scientifique?.nom }}</td>
+          <td>{{ campagne.scientifique?.sigleInst }}</td>
+          <td>{{ campagne.laboratoire?.ville }}</td>
+          <td>{{ campagne.laboratoire?.ville }}</td>
+          <td><a href="#">Carte</a></td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="objectif">
+      <strong>Objectifs de la Campagne :</strong>
+      <p>Study of the water and sedimentary dynamics in the Gulf of Tunis</p>
+    </div>
+  
+    <div class="mesures">
+      <strong>Mesures</strong>
+      <!-- Tu peux afficher les profils ici -->
+      <p>Nombre de profils : {{ campagne.profils?.length }}</p>
+    </div>
+  </div>
+  

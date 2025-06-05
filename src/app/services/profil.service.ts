@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class ProfilService {
-  private apiUrl = 'http://localhost:8085/api/profils/filter';
+  private apiUrl = 'http://localhost:8085/api/profils';
 
   private profilsSubject = new BehaviorSubject<any[]>([]);
   profils$ = this.profilsSubject.asObservable();
@@ -20,7 +20,7 @@ export class ProfilService {
       }
     });
 
-    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
+    return this.http.get<any[]>(this.apiUrl+"/filtrer", { params }).pipe(
       tap(profils => this.profilsSubject.next(profils))
     );
   }
@@ -28,4 +28,11 @@ export class ProfilService {
   getProfils(): any[] {
     return this.profilsSubject.getValue();
   }
+  exportProfilData(profilIds: string[], parametres: string[]) {
+    const body = { profilIds, parametres };
+    return this.http.post(this.apiUrl+"/export", body, {
+      responseType: 'blob'
+    });
+  }
+  
 }

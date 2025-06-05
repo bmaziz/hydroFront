@@ -1,0 +1,76 @@
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px;
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3, h4 {
+  color: #005577;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 180px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.data-table th {
+  background-color: #005577;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+#map {
+  height: 400px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.legend-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.legend-grid > div {
+  width: 48%;
+  background-color: #e9ecef;
+  padding: 10px 14px;
+  border-radius: 10px;
+}

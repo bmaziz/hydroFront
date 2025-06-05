@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <h2>Demandes en attente</h2>
+    <table class="table table-bordered table-striped" *ngIf="demandes.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Utilisateur</th>
+          <th>Profil</th>
+          <th>Date Demande</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of demandes">
+          <td>{{ d.id }}</td>
+          <td>{{ d.utilisateur.login }}</td>
+          <td>{{ d.profil.idProfil }}</td>
+          <td>{{ d.dateDemande | date:'short' }}</td>
+          <td>
+            <button class="btn btn-success btn-sm me-2" (click)="traiter(d.id, 'ACCEPTED')">✅ Accepter</button>
+            <button class="btn btn-danger btn-sm" (click)="traiter(d.id, 'REJECTED')">❌ Refuser</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="demandes.length === 0" class="alert alert-info">Aucune demande en attente.</div>
+  </div>
+  

@@ -1,0 +1,135 @@
+<div class="container">
+  <h2>Extraction des données</h2>
+
+  <h3>Paramètres mesurés :</h3>
+  <div class="border p-3 rounded mb-3" style="width: fit-content; border: 1px solid #aaa;">
+    <div class="mb-2">
+      <label>
+        <input type="radio" name="mode" [(ngModel)]="modeSelection" value="all" />
+        Tous les paramètres disponibles
+      </label>
+      <span class="mx-2">ou</span>
+      <label>
+        <input type="radio" name="mode" [(ngModel)]="modeSelection" value="custom" />
+        Choisir les paramètres à extraire
+      </label>
+    </div>
+
+    <div *ngIf="modeSelection === 'custom'">
+      <div class="mb-1"><strong>Paramètres CTD :</strong></div>
+      <div class="d-flex flex-wrap mb-2">
+        <ng-container *ngFor="let param of parametres">
+          <label class="me-3" *ngIf="param.data_type.codeType === 'H10'">
+            <input type="checkbox" [(ngModel)]="param.selected" />
+            {{ param.codeParam }}
+          </label>
+        </ng-container>
+      </div>
+
+      <div class="mb-1"><strong>Paramètres Bouteilles :</strong></div>
+      <div class="d-flex flex-wrap">
+        <ng-container *ngFor="let param of parametres">
+          <label class="me-3" *ngIf="param.data_type.codeType === 'H09'">
+            <input type="checkbox" [(ngModel)]="param.selected" />
+            {{ param.codeParam }}
+          </label>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+
+  <h3>Profils disponibles :</h3>
+  <table class="data-table table table-striped" *ngIf="profils.length > 0">
+    <thead>
+      <tr>
+        <th>ID Profil</th>
+        <th>Date</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Profondeur</th>
+        <th>Paramètres CTD</th>
+        <th>Paramètres Bouteilles</th>
+        <th>Sélection</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of getProfilsPage()">
+        <td>{{ p.idProfil }}</td>
+        <td>{{ p.dateProfil }}</td>
+        <td>{{ p.lat | number:'1.2-2' }}</td>
+        <td>{{ p.longitude | number:'1.2-2' }}</td>
+        <td>{{ p.depth }}</td>
+
+        <!-- CTD -->
+        <td>
+
+          <ng-container *ngIf="p.parametres && p.parametres.length > 0">
+
+            <span *ngFor="let param of p.parametres; let last = last">
+              <ng-container *ngIf="param.data_type.codeType === 'H10'">
+                {{ param.codeParam }}<span *ngIf="!last">, </span>
+              </ng-container>
+            </span>
+          </ng-container>
+        </td>
+
+        <td>
+          <ng-container *ngIf="p.parametres && p.parametres.length > 0">
+            <span *ngFor="let param of p.parametres; let last = last">
+              <ng-container *ngIf="param.data_type.codeType === 'H9'">
+                {{ param.codeParam }}<span *ngIf="!last">, </span>
+              </ng-container>
+            </span>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container [ngSwitch]="p.statutDemande">
+            <ng-container *ngSwitchCase="'ACCEPTED'">
+              <input type="checkbox" [(ngModel)]="p.selected" />
+              <span class="ms-2 text-success">✅ Acceptée</span>
+            </ng-container>
+          
+            <span *ngSwitchCase="'REJECTED'" class="text-danger">❌ Refusée</span>
+            <span *ngSwitchCase="'PENDING'" class="text-warning">⏳ En attente</span>
+            
+            <button *ngSwitchCase="'non_demandé'" class="btn btn-sm btn-outline-primary"
+                    (click)="demanderAcces(p.idProfil)">
+              🔓 Demander accès
+            </button>
+          </ng-container>
+          
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-secondary" (click)="previousPage()" [disabled]="page === 0">⬅️ Précédent</button>
+    <button class="btn btn-secondary" (click)="nextPage()" [disabled]="(page + 1) * pageSize >= profils.length">Suivant
+      ➡️</button>
+  </div>
+  <div class="text-end mt-4 mb-5">
+    <button class="btn btn-success btn-lg px-4 py-2 shadow rounded" (click)="onExport()">
+      📄 Extraire les données TXT
+    </button>
+  </div>
+
+
+  <div class="container mt-4" *ngIf="parametres && parametres.length > 0">
+    <h4 class="mb-3">Légende des paramètres :</h4>
+    <div class="row" *ngFor="let pair of parametres | slice:0:100; let i = index">
+      <ng-container *ngIf="i % 2 === 0">
+        <div class="col-md-6 mb-2">
+          <strong>{{ parametres[i].codeParam }}:</strong>
+          {{ parametres[i].libelleParam }} ({{ parametres[i].unite }})
+        </div>
+        <div class="col-md-6 mb-2" *ngIf="parametres[i + 1]">
+          <strong>{{ parametres[i + 1].codeParam }}:</strong>
+          {{ parametres[i + 1].libelleParam }} ({{ parametres[i + 1].unite }})
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

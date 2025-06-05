@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode'; // ✅ correct
 
 @Injectable({
   providedIn: 'root'
@@ -8,33 +9,51 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private apiUrl = 'http://localhost:8085/api/auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+  login(credentials: { login: string, password: string }) {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials);
   }
 
-  login(credentials: { login: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  register(data: any) {
+    return this.http.post(`${this.apiUrl}/register`, data);
   }
+
+  saveToken(token: string) {
+    localStorage.setItem('auth-token', token);
+  }
+  getLoginFromToken(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+  
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.sub || decoded.login || null; // selon le champ utilisé dans ton JWT
+    } catch (e) {
+      console.error("Erreur de décodage du token :", e);
+      return null;
+    }
+  }
+  
   getToken(): string | null {
     return localStorage.getItem('auth-token');
   }
-  
+
   getRole(): string | null {
-    return localStorage.getItem('auth-role');
+    const token = this.getToken();
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      return decoded.role || null;
+    }
+    return null;
   }
-  
-  isAuthenticated(): boolean {
+
+  isLoggedIn(): boolean {
     return !!this.getToken();
   }
-  
-  isAdmin(): boolean {
-    return this.getRole() === 'ADMIN';
+
+  logout(): void {
+    localStorage.removeItem('auth-token');
+    this.router.navigate(['/login']);
   }
-  
-  isUser(): boolean {
-    return this.getRole() === 'UTILISATEUR';
-  }
-  
 }
