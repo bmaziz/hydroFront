@@ -1,0 +1,48 @@
+<nb-card>
+    <nb-card-header>➕ Ajouter un navire</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+        <div class="form-group">
+          <label for="codeNavire">Code Navire</label>
+          <input nbInput fullWidth id="codeNavire" placeholder="Code Navire" formControlName="codeNavire" />
+        </div>
+  
+        <div class="form-group">
+          <label for="nomNavire">Nom Navire</label>
+          <input nbInput fullWidth id="nomNavire" placeholder="Nom Navire" formControlName="nomNavire" />
+        </div>
+  
+        <div class="form-group">
+          <label for="longueur">Longueur</label>
+          <input nbInput fullWidth id="longueur" placeholder="Longueur" formControlName="longueur" />
+        </div>
+  
+        <div class="form-group">
+          <label for="puissance">Puissance</label>
+          <input nbInput fullWidth id="puissance" placeholder="Puissance" formControlName="puissance" />
+        </div>
+  
+        <div class="form-group">
+          <label for="tonnage">Tonnage</label>
+          <input nbInput fullWidth id="tonnage" placeholder="Tonnage" formControlName="tonnage" />
+        </div>
+  
+        <div class="form-group">
+          <label for="pay">Pays</label>
+          <nb-select fullWidth id="pay" placeholder="Pays" formControlName="pay">
+            <nb-option *ngFor="let p of paysList" [value]="p">{{ p.nomPays }}</nb-option>
+          </nb-select>
+        </div>
+  
+        <div class="mt-3">
+          <button nbButton status="primary" type="submit" [disabled]="form.invalid">Ajouter</button>
+          <a routerLink="/admin/navires">
+            <button nbButton status="basic" type="button">↩️ Retour</button>
+          </a>
+        </div>
+  
+      </form>
+    </nb-card-body>
+  </nb-card>
+  

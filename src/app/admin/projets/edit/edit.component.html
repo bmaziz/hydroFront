@@ -1,0 +1,20 @@
+<nb-card>
+    <nb-card-header>✏️ Modifier un projet</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+        <div class="form-group">
+          <label for="nomProjet">Nom du projet :</label>
+          <input nbInput fullWidth id="nomProjet" formControlName="nomProjet" readonly />
+        </div>
+  
+        <div class="mt-3">
+          <button nbButton status="primary" type="submit" [disabled]="form.invalid">
+            Enregistrer les modifications
+          </button>
+        </div>
+  
+      </form>
+    </nb-card-body>
+  </nb-card>
+  

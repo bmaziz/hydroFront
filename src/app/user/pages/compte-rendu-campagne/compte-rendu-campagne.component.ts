@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CampagneService } from '../../../services/campagne.service';
 import { NavireService } from '../../../services/navire.service';
-import { LaboratoireService } from '../../../services/lab.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LaboratoireService } from '../../../services/laboratoire.service';
 
 @Component({
   selector: 'app-compte-rendu-campagne',
@@ -39,13 +39,13 @@ export class CompteRenduCampagneComponent implements OnInit {
 
   ngOnInit(): void {
  
-    this.navireService.getNavires().subscribe({
+    this.navireService.getAll().subscribe({
       next: (data) => {this.navires = data,console.log(data);
       },
       
       error: (err) => console.error('Erreur de chargement des navires', err)
     });
-    this.laboratoireService.getLaboratoires().subscribe({
+    this.laboratoireService.getAll().subscribe({
       next: (data) => {this.laboratoires = data,console.log(data);
       },
       error: (err) => console.error(err)

@@ -25,7 +25,36 @@ export class DashboardComponent implements OnInit{
       title: '📥 Traiter Demandes',
       icon: 'checkmark-circle-2-outline',
       link: '/admin/traiter-demandes',
+    },
+    {
+      title: '🌍 Gestion des Pays',
+      icon: 'globe-2-outline',
+      link: '/admin/pays/list',
+    },
+    {
+      title: '🏢 Gestion des Laboratoires',
+      icon: 'home-outline',
+      link: '/admin/laboratoires',
+    },
+    {
+      title: '📁 Gestion des Projets',
+      icon: 'folder-outline',
+      link: '/admin/projets'
+    },
+    {
+      title: '🧑‍🔬 Gestion des Scientifiques',
+      icon: 'people-outline',
+      link: '/admin/scientifiques'
+    },
+    {
+      title: '🚢 Gestion des Navires',
+      icon: 'compass-outline',
+      link: '/admin/navires'
     }
+    
+    
+    
+    
   ];
   constructor(private authService: AuthService) {}
 

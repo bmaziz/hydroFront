@@ -1,0 +1,24 @@
+<div class="container">
+    <h2>➕ Ajouter un laboratoire</h2>
+  
+    <form (ngSubmit)="add()">
+      <div class="form-group">
+        <label>Code du labo</label>
+        <input class="form-control" [(ngModel)]="laboratoire.lab" name="lab" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Institution</label>
+        <input class="form-control" [(ngModel)]="laboratoire.institution" name="institution" required />
+      </div>
+  
+      <div class="form-group">
+        <label>Ville</label>
+        <input class="form-control" [(ngModel)]="laboratoire.ville" name="ville" required />
+      </div>
+  
+      <button class="btn btn-success mt-2" type="submit">Ajouter</button>
+      <a class="btn btn-secondary mt-2" routerLink="/admin/laboratoires">Annuler</a>
+    </form>
+  </div>
+  

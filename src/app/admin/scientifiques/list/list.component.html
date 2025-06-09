@@ -1,0 +1,43 @@
+<nb-card>
+    <nb-card-header>
+      👩‍🔬 Liste des scientifiques
+      <a routerLink="/admin/scientifiques/add">
+        <button nbButton status="success" size="small" class="float-right">➕ Ajouter</button>
+      </a>
+    </nb-card-header>
+  
+    <nb-card-body>
+      <input nbInput fullWidth placeholder="🔍 Rechercher par nom" [(ngModel)]="search" (input)="applyFilter()" />
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nom scientifique</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Institution</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of paginated">
+            <td>{{ s.nom_s }}</td>
+            <td>{{ s.nom }}</td>
+            <td>{{ s.prenom }}</td>
+            <td>{{ s.sigleInst }}</td>
+            <td>
+              <button nbButton size="tiny" status="info" [routerLink]="['/admin/scientifiques/edit', s.nom_s]">✏️</button>
+              <button nbButton size="tiny" status="danger" (click)="delete(s.nom_s)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="pagination">
+        <button nbButton size="tiny" (click)="previousPage()">⬅️</button>
+        <span>Page {{ currentPage }}</span>
+        <button nbButton size="tiny" (click)="nextPage()">➡️</button>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  

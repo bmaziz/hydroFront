@@ -9,10 +9,34 @@ const routes: Routes = [{
   component: DashboardComponent,
   children: [
     { path: 'upload-cli', component: UploadCliComponent },
-    {path: 'traiter-demandes',component: TraiterDemandeComponent},
+    { path: 'traiter-demandes', component: TraiterDemandeComponent },
+
+    {
+      path: 'pays',
+      loadChildren: () => import('./pays/pays.module').then(m => m.PaysModule)
+    },
+    {
+      path: 'laboratoires',
+      loadChildren: () => import('./laboratoires/laboratoires.module').then(m => m.LaboratoiresModule)
+    }
+    , {
+      path: 'projets',
+      loadChildren: () => import('./projets/projets.module').then(m => m.ProjetsModule)
+    },
+    {
+      path: 'scientifiques',
+      loadChildren: () => import('./scientifiques/scientifiques.module').then(m => m.ScientifiquesModule)
+    }
+    ,{
+      path: 'navires',
+      loadChildren: () => import('./navires/navires.module').then(m => m.NaviresModule)
+    }
+    
+
+    ,
     { path: '', redirectTo: 'upload-cli', pathMatch: 'full' }
-]}
-];
+  ]
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

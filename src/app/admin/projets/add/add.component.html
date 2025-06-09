@@ -1,0 +1,18 @@
+<nb-card>
+    <nb-card-header>➕ Ajouter un projet</nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+        <div class="form-group">
+          <label for="nomProjet">Nom du projet :</label>
+          <input nbInput fullWidth id="nomProjet" formControlName="nomProjet" placeholder="Nom du projet" />
+        </div>
+  
+        <div class="mt-3">
+          <button nbButton status="success" type="submit" [disabled]="form.invalid">Ajouter</button>
+        </div>
+  
+      </form>
+    </nb-card-body>
+  </nb-card>
+  
